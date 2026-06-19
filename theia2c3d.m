@@ -19,8 +19,14 @@ function data = theia2c3d(fname, fileout, TRCoutput, filter_freq, crop, show_ani
 % OUTPUT -  data = data structure containing all of the extracted data from
 %                   the c3d file
 %
-% AUTHOR = Glen Lichtwark
-% Queensland University of Technology, Jan 2026
+% AUTHORS 
+% Glen Lichtwark
+% Queensland University of Technology
+% 
+% Logan Wade
+% Univeristy of New South Wales
+% 
+% Last Updated: June 2026
 
 if nargin < 6
     show_animation = false;

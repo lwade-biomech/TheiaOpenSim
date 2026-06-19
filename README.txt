@@ -4,20 +4,14 @@ MATLAB tools for converting Theia3D markerless motion capture outputs into OpenS
 
 ## Workflow
 
-```text
-Theia3D C3D
-    ↓
-Virtual Marker Generation
-    ↓
-Low-Pass Filtering (default 10 Hz)
-    ↓
-TRC Export
-    ↓
-OpenSim Scaling
-    ↓
-Inverse Kinematics
-    ↓
-Body Kinematics Analysis
+```mermaid
+flowchart TD
+    A[Theia3D C3D] --> B[Virtual Marker Generation]
+    B --> C[Low-Pass Filtering<br/>Default: 10 Hz]
+    C --> D[TRC Export]
+    D --> E[OpenSim Model Scaling]
+    E --> F[Inverse Kinematics]
+    F --> G[Body Kinematics Analysis]
 ```
 
 ## Requirements
@@ -31,22 +25,41 @@ Body Kinematics Analysis
 
 * Batch processing of individual files or participant folders
 * Virtual marker generation from Theia3D segment poses
-* Automatic TRC creation
+* Automatic TRC generation
 * Subject-specific OpenSim model scaling
 * Inverse kinematics processing
 * Body kinematics analysis
-* Optional use of a single static calibration trial for all movement trials
+* Optional static calibration workflow using a single scaled model for all trials
 
 ## Outputs
 
-* **ModelScaling/** – scaled OpenSim models and scale files
-* **InverseKinematics/** – joint kinematics (`.mot`)
-* **BodyAnalysis/** – segment positions and orientations (`.sto`)
+### `ModelScaling/`
+
+* Scaled OpenSim models (`.osim`)
+* Scale factors (`.xml`)
+* Marker placement files
+* Static motion files
+
+### `InverseKinematics/`
+
+* Joint kinematics (`.mot`)
+* IK setup files (`.xml`)
+
+### `BodyAnalysis/`
+
+* Segment positions and orientations (`.sto`)
+* Body kinematics outputs
+
+## Notes
+
+* Virtual markers are generated from Theia3D segment poses and are intended for OpenSim scaling and inverse kinematics workflows.
+* Marker trajectories are low-pass filtered prior to TRC generation, scaling, and inverse kinematics.
+* Users are responsible for ensuring that derived outcome measures are appropriate for markerless motion capture applications and supported by relevant validation literature.
 
 ## Authors
 
-Glen Lichtwark
+**Glen Lichtwark**
 Queensland University of Technology
 
-Logan Wade
+**Logan Wade**
 University of New South Wales

@@ -1,20 +1,23 @@
-%% Theia to OpenSim batch processing pipeline
+% Theia to OpenSim batch processing pipeline
 %
 % This script:
 %   1. Selects C3D files from a folder or manual file selection
-%   2. Converts each Theia C3D to virtual marker C3D using theia2c3d
-%   3. Writes a TRC file from the virtual markers
-%   4. Scales an OpenSim model
-%   5. Runs inverse kinematics
-%   6. Runs body analysis
+%   2. Converts each Theia C3D to a virtual-marker C3D using theia2c3d
+%   3. Optionally low-pass filters the virtual markers
+%   4. Writes a TRC file from the virtual markers
+%   5. Scales an OpenSim model, either per trial or from a calibration trial
+%   6. Runs inverse kinematics
+%   7. Runs body analysis
 %
 % IMPORTANT:
-%   The TRC file is required for OpenSim scaling and IK.
+%   The TRC file output is required for OpenSim scaling and IK.
 %
-% AUTHORS
-%
-% Glen Lichtwark, Queensland University of Technology
-% Logan Wade, University of New South Wales
+%% AUTHORS
+% Glen Lichtwark
+%   Queensland University of Technology
+% 
+% Logan Wade
+%   University of New South Wales
 %
 % Last Updated: June 2026
 

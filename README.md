@@ -27,13 +27,16 @@ MATLAB tools for converting Theia3D markerless motion capture outputs (C3D files
 8. Choose the scaling mode:
    - **Every file**: scale a separate OpenSim model for each trial.
    - **Calibration trial**: select one static/calibration trial and reuse that scaled model for all movement trials.
-        - If using a calibration trial, select the static/calibration C3D file when prompted.
+        - If using a calibration trial, select the static/calibration C3D file when prompted. Theia needs movement to scale a trial adequately, thus your calibration/'static' trial should have movement in. The example 'static' trial here starts and ends with an A frame posture, with movement in the middle.
 10. The script will then:
     - convert Theia3D C3D files to virtual marker C3D files,
     - write TRC files,
     - scale the OpenSim model,
     - run inverse kinematics,
     - run body kinematics analysis.
+
+
+Example C3D files are provided to help get you started.
 
 ## Outputs
 
@@ -65,9 +68,11 @@ Contains body kinematics outputs, including:
 - Derived outcome measures should be selected carefully and should be appropriate for markerless motion capture data.
 
 ## Authors
-
 **Glen Lichtwark**  
 Queensland University of Technology
 
 **Logan Wade**  
 University of New South Wales
+
+## Issues
+If you have any issues running this code, please contact: logan.wade@unsw.edu.au

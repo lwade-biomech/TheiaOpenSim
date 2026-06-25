@@ -15,7 +15,7 @@
 %% AUTHORS
 % Glen Lichtwark
 %   Queensland University of Technology
-% 
+%
 % Logan Wade
 %   University of New South Wales
 %
@@ -375,14 +375,12 @@ GMM.setName(mod_name);
 
 scaleSetFile    = fullfile(outDir, [name '_scaleSetApplied.xml']);
 scaledModelFile = fullfile(outDir, [name '_Scaled.osim']);
-staticMotFile   = fullfile(outDir, [name '_static.mot']);
 markersFile     = fullfile(outDir, [name '_markersScaled.xml']);
 
 % Delete existing output files before running Scale Tool
 filesToDelete = { ...
     scaleSetFile, ...
     scaledModelFile, ...
-    staticMotFile, ...
     markersFile};
 
 for f = 1:numel(filesToDelete)
@@ -404,7 +402,6 @@ end
 
 MS.setOutputScaleFileName(scaleSetFile);
 MS.setOutputModelFileName(scaledModelFile);
-MP.setOutputMotionFileName(staticMotFile);
 MP.setOutputModelFileName(scaledModelFile);
 MP.setOutputMarkerFileName(markersFile);
 
@@ -487,6 +484,9 @@ if ~exist(bodyDir, 'dir')
     mkdir(bodyDir);
 end
 
+% Use the IK filename as the base name so body analysis matches IK output names
+[~, fname, ~] = fileparts(data.MOT_Filename);
+
 motData = Storage(data.MOT_Filename);
 initial_time = motData.getFirstTime();
 final_time   = motData.getLastTime();
@@ -504,7 +504,7 @@ tool.setModelFilename(data.ScaledModel);
 tool.setCoordinatesFileName(data.MOT_Filename);
 tool.setLoadModelAndInput(true);
 tool.setSolveForEquilibrium(true);
-tool.setName(trialName);
+tool.setName(fname);
 tool.setResultsDir([bodyDir filesep]);
 tool.setStartTime(initial_time);
 tool.setFinalTime(final_time);
@@ -512,13 +512,13 @@ tool.setFinalTime(final_time);
 AS = tool.getAnalysisSet;
 AS.set(0, Body_AnL);
 
-setup_file = fullfile(bodyDir, [trialName '_BAsetup.xml']);
+setup_file = fullfile(bodyDir, [fname '_BAsetup.xml']);
 tool.print(setup_file);
 tool.run();
 
-f = dir(fullfile(bodyDir, [trialName '*.sto']));
+f = dir(fullfile(bodyDir, [fname '*.sto']));
 for i = 1:numel(f)
-    analysis_name = strrep(strrep(strrep(f(i).name, '_BodyKinematics_', ''), trialName, ''), '.sto', '');
+    analysis_name = strrep(strrep(strrep(f(i).name, '_BodyKinematics_', ''), fname, ''), '.sto', '');
     data.body_results.(analysis_name) = load_sto_file(fullfile(f(i).folder, f(i).name));
 end
 

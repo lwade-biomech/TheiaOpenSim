@@ -47,7 +47,6 @@ Contains scaled model outputs, including:
 - scaled OpenSim models (`.osim`)
 - applied scale files (`.xml`)
 - marker placement files (`.xml`)
-- static motion files (`.mot`)
 - Scale Tool setup files (`.xml`)
 
 ### `InverseKinematics/`
